@@ -1,10 +1,33 @@
-const Options = () => {
+import { useEffect } from "react";
+
+const Options = ({ pageObj, setPageToRender }) => {
+  if (!pageObj.options) {
+    return null;
+  }
+
   return (
-    <div className='options'>
-      <p>¿Quieres</p>
-      <p className='option-slot'>...salir al campo?</p>
-      <p className='option-slot'>...encender la máquina?</p>
-    </div>
+    <>
+      {pageObj.options.length ? (
+        <div className="options">
+          <p>¿Quieres</p>
+          {pageObj.options.map((option) => {
+            return (
+              <button
+                key={option.page}
+                className="option-slot"
+                onClick={() => setPageToRender({ page: option.link })}
+              >
+                {option.text}
+              </button>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="options-end">
+          <p>FIN</p>
+        </div>
+      )}
+    </>
   );
 };
 
